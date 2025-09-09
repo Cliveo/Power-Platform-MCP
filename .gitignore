@@ -1,0 +1,30 @@
+# Build outputs
+**/bin/
+**/obj/
+
+# VS Code
+.vscode/*
+!.vscode/mcp.json
+!.vscode/tasks.json
+
+# User-specific
+*.user
+*.suo
+*.userprefs
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+**/packages/
+
+# Logs
+*.log
+
+# Local tooling/state
+.azure/
+*.local.json
+
+# OS files
+.DS_Store
+Thumbs.db
