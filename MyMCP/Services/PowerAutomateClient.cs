@@ -142,7 +142,10 @@ public class PowerAutomateClient
         string runName,
         CancellationToken cancellationToken = default)
     {
-        var url = CombineUrl(flowApiBaseUrl, $"providers/Microsoft.ProcessSimple/environments/{environmentId}/flows/{flowId}/runs/{runName}/actions?api-version=2016-11-01");
+        var envWithoutHyphens = environmentId.Replace("-", string.Empty).ToLowerInvariant();
+        var envPrefix = envWithoutHyphens.Substring(0, envWithoutHyphens.Length - 2);
+        var lastTwoChars = envWithoutHyphens.Substring(envWithoutHyphens.Length - 2);
+        var url = $"https://{envPrefix}.{lastTwoChars}.environment.api.powerplatform.com/powerautomate/flows/{flowId}/runs/{runName}?$expand=properties%2Factions,properties%2Fflow&include=repetitionCount&isMigrationSource=false&api-version=1";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, url);
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await GetAccessTokenAsync(cancellationToken));
